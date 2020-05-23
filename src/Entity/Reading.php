@@ -91,4 +91,18 @@ class Reading
 
 		return $this;
 	}
+
+	public function __toString()
+	{
+		$string = 'Commencé le ';
+		$string .= $this->start_date->format('d-m-Y');
+
+		if (!\is_null($this->end_date))
+		{
+			$string .= ' et terminé le ';
+			$string .= $this->end_date->format('d-m-Y');
+		}
+
+		return $string;
+	}
 }

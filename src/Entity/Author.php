@@ -112,4 +112,23 @@ class Author
 
 		return $this;
 	}
+
+	public function __toString()
+	{
+		$string = '';
+
+		if (!\is_null($this->first_name))
+		{
+			$string .= $this->first_name . ' ';
+		}
+
+		if (!\is_null($this->middle_name))
+		{
+			$string .= $this->middle_name . ' ';
+		}
+
+		$string .= $this->last_name;
+
+		return $string;
+	}
 }
