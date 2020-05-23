@@ -55,3 +55,9 @@ services:
         arguments: [~, App\Entity\Reading, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, label: Lectures }
+
+    admin.series:
+        class: App\Admin\SeriesAdmin
+        arguments: [~, App\Entity\Series, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Séries }
