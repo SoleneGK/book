@@ -30,14 +30,30 @@ final class LanguageAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $list_mapper)
     {
 		$list_mapper
-			->addIdentifier('name')
+			->addIdentifier('name', 'string', [
+				'route' => [
+					'name' => 'show',
+				],
+				'label' => 'Nom',
+			])
 		;
 	}
 	
 	protected function configureShowFields(ShowMapper $show_mapper)
 	{
 		$show_mapper
-			->add('name')
+			->add('name', 'string', [
+				'label' => 'Nom',
+				'route' => [
+					'name' => 'show',
+				]
+			])
+			->add('books', null, [
+				'route' => [
+					'name' => 'show',
+				],
+				'label' => 'Livres',
+			])
 		;
 	}
 }

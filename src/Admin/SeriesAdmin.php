@@ -34,14 +34,26 @@ final class SeriesAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $list_mapper)
     {
 		$list_mapper
-			->addIdentifier('name')
+			->addIdentifier('name', 'string', [
+				'route' => [
+					'name' => 'show',
+				]
+			])
 		;
 	}
 	
 	protected function configureShowFields(ShowMapper $show_mapper)
 	{
 		$show_mapper
-			->add('name')
+			->add('name', 'string', [
+				'label' => 'Nom',
+			])
+			->add('books', null, [
+				'route' => [
+					'name' => 'show',
+				],
+				'label' => 'Livres',
+			])
 		;
 	}
 }

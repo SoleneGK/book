@@ -26,6 +26,18 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
+    admin.book:
+        class: App\Admin\BookAdmin
+        arguments: [~, App\Entity\Book, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Livres }
+
+    admin.reading:
+        class: App\Admin\ReadingAdmin
+        arguments: [~, App\Entity\Reading, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Lectures }
+
     admin.genre:
         class: App\Admin\GenreAdmin
         arguments: [~, App\Entity\Genre, ~]
@@ -44,20 +56,14 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, label: Langues }
 
-    admin.book:
-        class: App\Admin\BookAdmin
-        arguments: [~, App\Entity\Book, ~]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: Livres }
-
-    admin.reading:
-        class: App\Admin\ReadingAdmin
-        arguments: [~, App\Entity\Reading, ~]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: Lectures }
-
     admin.series:
         class: App\Admin\SeriesAdmin
         arguments: [~, App\Entity\Series, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, label: Séries }
+
+    admin.country:
+        class: App\Admin\CountryAdmin
+        arguments: [~, App\Entity\Country, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Pays }

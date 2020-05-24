@@ -39,6 +39,11 @@ class Author
 	 */
 	private $books;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Country::class, inversedBy="authors")
+     */
+    private $country;
+
 	public function __construct()
 	{
 		$this->books = new ArrayCollection();
@@ -131,4 +136,16 @@ class Author
 
 		return $string;
 	}
+
+    public function getCountry(): ?Country
+    {
+        return $this->country;
+    }
+
+    public function setCountry(?Country $country): self
+    {
+        $this->country = $country;
+
+        return $this;
+    }
 }

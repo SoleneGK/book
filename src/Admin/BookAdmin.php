@@ -68,6 +68,7 @@ final class BookAdmin extends AbstractAdmin
     {
 		$datagrid_mapper
 			->add('title')
+			->add('rating.value')
 		;
     }
 
@@ -76,15 +77,33 @@ final class BookAdmin extends AbstractAdmin
 		$list_mapper
 			->addIdentifier('title', 'string', [
 				'label' => 'Titre',
+				'route' => [
+					'name' => 'show',
+				]
 			])
 			->add('authors', null, [
 				'label' => 'Auteurice(s)',
+				'route' => [
+					'name' => 'show',
+				]
 			])
 			->add('genres', null, [
 				'label' => 'Genres',
+				'route' => [
+					'name' => 'show',
+				]
+			])
+			->add('language', null, [
+				'label' => 'Langue(s)',
+				'route' => [
+					'name' => 'show',
+				],
 			])
 			->add('rating.code', 'string', [
 				'label' => 'Note',
+			])
+			->add('rating.value', null, [
+				'label' => 'Valeur',
 			])
 		;
 	}
@@ -92,18 +111,51 @@ final class BookAdmin extends AbstractAdmin
 	protected function configureShowFields(ShowMapper $show_mapper)
 	{
 		$show_mapper
-		->add('title', 'string', [
-			'label' => 'Titre',
-		])
-		->add('authors', null, [
-			'label' => 'Auteurice(s)',
-		])
-		->add('genres', null, [
-			'label' => 'Genres',
-		])
-		->add('rating.code', 'string', [
-			'label' => 'Note',
-		])
+			->add('title', 'string', [
+				'label' => 'Titre',
+				'route' => [
+					'name' => 'show',
+				]
+			])
+			->add('series', 'string', [
+				'label' => 'Série',
+				'route' => [
+					'name' => 'show',
+				],
+			])
+			->add('number_in_series', null, [
+				'label' => 'Tome',
+			])
+			->add('authors', null, [
+				'label' => 'Auteurice(s)',
+				'route' => [
+					'name' => 'show',
+				]
+			])
+			->add('genres', null, [
+				'label' => 'Genres',
+				'route' => [
+					'name' => 'show',
+				]
+			])
+			->add('languages', null, [
+				'label' => 'Langues',
+				'route' => [
+					'name' => 'show',
+				],
+			])
+			->add('rating.code', 'string', [
+				'label' => 'Note',
+				'route' => [
+					'name' => 'show',
+				]
+			])
+			->add('readings', null, [
+				'label' => 'Lecture(s)',
+				'route' => [
+					'name' => 'show',
+				],
+			])
 		;
 	}
 }

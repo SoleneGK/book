@@ -9,7 +9,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-final class GenreAdmin extends AbstractAdmin
+final class CountryAdmin extends AbstractAdmin
 {
 	protected $datagridValues = [
 		'_sort_by' => 'name',
@@ -49,11 +49,11 @@ final class GenreAdmin extends AbstractAdmin
 			->add('name', 'string', [
 				'label' => 'Nom',
 			])
-			->add('books', null, [
+			->add('authors', null, [
 				'route' => [
 					'name' => 'show',
 				],
-				'label' => 'Livres',
+				'label' => 'Auteurices',
 			])
 		;
 	}
