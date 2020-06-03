@@ -33,8 +33,8 @@ final class AuthorAdmin extends AbstractAdmin
 			])
 			->add('country', ModelType::class, [
 				'class' => Country::class,
-				'required' => false,
 				'label' => 'Pays',
+				'required' => false,
 			])
 		;
     }
@@ -44,7 +44,7 @@ final class AuthorAdmin extends AbstractAdmin
 		$datagrid_mapper
 			->add('first_name')
 			->add('last_name')
-			->add('country.name')
+			->add('country')
 		;
     }
 
@@ -53,18 +53,18 @@ final class AuthorAdmin extends AbstractAdmin
 		$list_mapper
 			->addIdentifier('first_name', 'string', [
 				'label' => 'Prénom',
-				// 'route' => [
-				// 	'name' => 'show',
-				// ]
+				'route' => [
+					'name' => 'show',
+				]
 			])
 			->add('middle_name', 'string', [
 				'label' => 'Autre(s) prénom(s)',
 			])
 			->addIdentifier('last_name', 'string', [
 				'label' => 'Nom',
-				// 'route' => [
-				// 	'name' => 'show',
-				// ]
+				'route' => [
+					'name' => 'show',
+				]
 			])
 			->add('country', null, [
 				'label' => 'Pays',

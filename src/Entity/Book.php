@@ -59,156 +59,166 @@ class Book
      */
     private $number_in_series;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $fiction;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $misc;
+
 	public function __construct()
-	{
-		$this->authors = new ArrayCollection();
-		$this->genres = new ArrayCollection();
-		$this->readings = new ArrayCollection();
-		$this->languages = new ArrayCollection();
-	}
+                  	{
+                  		$this->authors = new ArrayCollection();
+                  		$this->genres = new ArrayCollection();
+                  		$this->readings = new ArrayCollection();
+                  		$this->languages = new ArrayCollection();
+                  	}
 
 	public function getId(): ?int
-	{
-		return $this->id;
-	}
+                  	{
+                  		return $this->id;
+                  	}
 
 	public function getTitle(): ?string
-	{
-		return $this->title;
-	}
+                  	{
+                  		return $this->title;
+                  	}
 
 	public function setTitle(string $title): self
-	{
-		$this->title = $title;
-	
-		return $this;
-	}
+                  	{
+                  		$this->title = $title;
+                  	
+                  		return $this;
+                  	}
 
 	/**
 	 * @return Collection|Author[]
 	 */
 	public function getAuthors(): Collection
-	{
-		return $this->authors;
-	}
+                  	{
+                  		return $this->authors;
+                  	}
 
 	public function addAuthor(Author $author): self
-	{
-		if (!$this->authors->contains($author)) {
-			$this->authors[] = $author;
-		}
-	
-		return $this;
-	}
+                  	{
+                  		if (!$this->authors->contains($author)) {
+                  			$this->authors[] = $author;
+                  		}
+                  	
+                  		return $this;
+                  	}
 
 	public function removeAuthor(Author $author): self
-	{
-		if ($this->authors->contains($author)) {
-			$this->authors->removeElement($author);
-		}
-	
-		return $this;
-	}
+                  	{
+                  		if ($this->authors->contains($author)) {
+                  			$this->authors->removeElement($author);
+                  		}
+                  	
+                  		return $this;
+                  	}
 
 	/**
 	 * @return Collection|Genre[]
 	 */
 	public function getGenres(): Collection
-	{
-		return $this->genres;
-	}
+                  	{
+                  		return $this->genres;
+                  	}
 
 	public function addGenre(Genre $genre): self
-	{
-		if (!$this->genres->contains($genre)) {
-			$this->genres[] = $genre;
-		}
-	
-		return $this;
-	}
+                  	{
+                  		if (!$this->genres->contains($genre)) {
+                  			$this->genres[] = $genre;
+                  		}
+                  	
+                  		return $this;
+                  	}
 
 	public function removeGenre(Genre $genre): self
-	{
-		if ($this->genres->contains($genre)) {
-			$this->genres->removeElement($genre);
-		}
-	
-		return $this;
-	}
+                  	{
+                  		if ($this->genres->contains($genre)) {
+                  			$this->genres->removeElement($genre);
+                  		}
+                  	
+                  		return $this;
+                  	}
 
 	public function getRating(): ?Rating
-	{
-		return $this->rating;
-	}
+                  	{
+                  		return $this->rating;
+                  	}
 
 	public function setRating(?Rating $rating): self
-	{
-		$this->rating = $rating;
-	
-		return $this;
-	}
+                  	{
+                  		$this->rating = $rating;
+                  	
+                  		return $this;
+                  	}
 
 	/**
 	 * @return Collection|Reading[]
 	 */
 	public function getReadings(): Collection
-	{
-		return $this->readings;
-	}
+                  	{
+                  		return $this->readings;
+                  	}
 
 	public function addReading(Reading $reading): self
-	{
-		if (!$this->readings->contains($reading)) {
-			$this->readings[] = $reading;
-			$reading->setBook($this);
-		}
-	
-		return $this;
-	}
+                  	{
+                  		if (!$this->readings->contains($reading)) {
+                  			$this->readings[] = $reading;
+                  			$reading->setBook($this);
+                  		}
+                  	
+                  		return $this;
+                  	}
 
 	public function removeReading(Reading $reading): self
-	{
-		if ($this->readings->contains($reading)) {
-			$this->readings->removeElement($reading);
-			// set the owning side to null (unless already changed)
-			if ($reading->getBook() === $this) {
-				$reading->setBook(null);
-			}
-		}
-	
-		return $this;
-	}
+                  	{
+                  		if ($this->readings->contains($reading)) {
+                  			$this->readings->removeElement($reading);
+                  			// set the owning side to null (unless already changed)
+                  			if ($reading->getBook() === $this) {
+                  				$reading->setBook(null);
+                  			}
+                  		}
+                  	
+                  		return $this;
+                  	}
 
 	/**
 	 * @return Collection|Language[]
 	 */
 	public function getLanguages(): Collection
-	{
-		return $this->languages;
-	}
+                  	{
+                  		return $this->languages;
+                  	}
 
 	public function addLanguage(Language $language): self
-	{
-		if (!$this->languages->contains($language)) {
-			$this->languages[] = $language;
-		}
-	
-		return $this;
-	}
+                  	{
+                  		if (!$this->languages->contains($language)) {
+                  			$this->languages[] = $language;
+                  		}
+                  	
+                  		return $this;
+                  	}
 
 	public function removeLanguage(Language $language): self
-	{
-		if ($this->languages->contains($language)) {
-			$this->languages->removeElement($language);
-		}
-	
-		return $this;
-	}
+                  	{
+                  		if ($this->languages->contains($language)) {
+                  			$this->languages->removeElement($language);
+                  		}
+                  	
+                  		return $this;
+                  	}
 
 	public function __toString()
-	{
-		return $this->title;
-	}
+                  	{
+                  		return $this->title;
+                  	}
 
     public function getSeries(): ?Series
     {
@@ -230,6 +240,30 @@ class Book
     public function setNumberInSeries(?int $number_in_series): self
     {
         $this->number_in_series = $number_in_series;
+
+        return $this;
+    }
+
+    public function getFiction(): ?bool
+    {
+        return $this->fiction;
+    }
+
+    public function setFiction(bool $fiction): self
+    {
+        $this->fiction = $fiction;
+
+        return $this;
+    }
+
+    public function getMisc(): ?string
+    {
+        return $this->misc;
+    }
+
+    public function setMisc(?string $misc): self
+    {
+        $this->misc = $misc;
 
         return $this;
     }

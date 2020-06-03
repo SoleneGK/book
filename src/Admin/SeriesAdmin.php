@@ -39,6 +39,12 @@ final class SeriesAdmin extends AbstractAdmin
 					'name' => 'show',
 				]
 			])
+			->add('_action', null, [
+				'actions' => [
+					'edit' => [],
+				]
+			])
+
 		;
 	}
 	

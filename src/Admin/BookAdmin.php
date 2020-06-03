@@ -16,6 +16,8 @@ use Sonata\AdminBundle\Show\ShowMapper;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 final class BookAdmin extends AbstractAdmin
 {
@@ -43,11 +45,22 @@ final class BookAdmin extends AbstractAdmin
 				'multiple' => true,
 				'label' => 'Auteurice(s)',
 			])
+			->add('fiction', CheckboxType::class, [
+				'label' => 'Œuvre de fiction',
+				'required' => false,
+			])
 			->add('genres', ModelType::class, [
 				'class' => Genre::class,
 				'property' => 'name',
 				'multiple' => true,
 				'label' => 'Genres',
+				'required' => false,
+			])
+			->add('languages', EntityType::class, [
+				'class' => Language::class,
+				'choice_label' => 'name',
+				'multiple' => true,
+				'label' => 'Langue(s)',
 			])
 			->add('rating', EntityType::class, [
 				'class' => Rating::class,
@@ -55,11 +68,9 @@ final class BookAdmin extends AbstractAdmin
 				'required' => false,
 				'label' => 'Note',
 			])
-			->add('languages', EntityType::class, [
-				'class' => Language::class,
-				'choice_label' => 'name',
-				'multiple' => true,
-				'label' => 'Langue(s)',
+			->add('misc', TextareaType::class, [
+				'label' => 'Divers',
+				'required' => false,
 			])
 		;
     }
@@ -68,6 +79,7 @@ final class BookAdmin extends AbstractAdmin
     {
 		$datagrid_mapper
 			->add('title')
+			->add('fiction')
 			->add('rating.value')
 		;
     }
@@ -81,19 +93,26 @@ final class BookAdmin extends AbstractAdmin
 					'name' => 'show',
 				]
 			])
+			->add('series', 'string', [
+				'label' => 'Série',
+				'route' => [
+					'name' => 'show',
+				]
+			])
 			->add('authors', null, [
 				'label' => 'Auteurice(s)',
 				'route' => [
 					'name' => 'show',
 				]
 			])
+			->add('fiction')
 			->add('genres', null, [
 				'label' => 'Genres',
 				'route' => [
 					'name' => 'show',
 				]
 			])
-			->add('language', null, [
+			->add('languages', null, [
 				'label' => 'Langue(s)',
 				'route' => [
 					'name' => 'show',
@@ -102,8 +121,10 @@ final class BookAdmin extends AbstractAdmin
 			->add('rating.code', 'string', [
 				'label' => 'Note',
 			])
-			->add('rating.value', null, [
-				'label' => 'Valeur',
+			->add('_action', null, [
+				'actions' => [
+					'edit' => [],
+				]
 			])
 		;
 	}
@@ -113,11 +134,8 @@ final class BookAdmin extends AbstractAdmin
 		$show_mapper
 			->add('title', 'string', [
 				'label' => 'Titre',
-				'route' => [
-					'name' => 'show',
-				]
 			])
-			->add('series', 'string', [
+			->add('series', null, [
 				'label' => 'Série',
 				'route' => [
 					'name' => 'show',
@@ -132,6 +150,7 @@ final class BookAdmin extends AbstractAdmin
 					'name' => 'show',
 				]
 			])
+			->add('fiction')
 			->add('genres', null, [
 				'label' => 'Genres',
 				'route' => [
@@ -155,6 +174,9 @@ final class BookAdmin extends AbstractAdmin
 				'route' => [
 					'name' => 'show',
 				],
+			])
+			->add('misc', 'string', [
+				'label' => 'Divers',
 			])
 		;
 	}
