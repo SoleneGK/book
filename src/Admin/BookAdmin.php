@@ -37,14 +37,12 @@ final class BookAdmin extends AbstractAdmin
 				'label' => 'Langue d\'affichage',
 			])
 			->add('title_in_writing_language', TextType::class, [
-				'label' => 'Titre en VO (si différend)',
-				'required' => false,
+				'label' => 'Titre en VO',
 			])
-			->add('writing_language', EntityType::class, [
+			->add('writing_language', ModelType::class, [
 				'class' => Language::class,
-				'choice_label' => 'name',
-				'label' => 'Langue originale (si différente)',
-				'required' => false,
+				'property' => 'name',
+				'label' => 'Langue originale',
 			])
 			->add('series', ModelType::class, [
 				'class' => Series::class,
@@ -126,6 +124,12 @@ final class BookAdmin extends AbstractAdmin
 			])
 			->add('rating.code', 'string', [
 				'label' => 'Note',
+			])
+			->add('display_language', null, [
+				'label' => 'Langue',
+				'route' => [
+					'name' => 'show',
+				]
 			])
 			->add('_action', null, [
 				'actions' => [

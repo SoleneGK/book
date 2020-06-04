@@ -20,7 +20,7 @@ final class TranslationAdmin extends AbstractAdmin
 		$form_mapper
 			->add('book', EntityType::class, [
 				'class' => Book::class,
-				'choice_label' => 'title',
+				'choice_label' => 'title_in_display_language',
 				'label' => 'Livre',
 			])
 			->add('language', ModelType::class, [
