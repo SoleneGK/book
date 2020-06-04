@@ -22,7 +22,7 @@ class Book
 	/**
 	 * @ORM\Column(type="text")
 	 */
-	private $title;
+	private $title_in_display_language;
 
 	/**
 	 * @ORM\ManyToMany(targetEntity=Author::class, inversedBy="books")
@@ -82,14 +82,14 @@ class Book
 		return $this->id;
 	}
 
-	public function getTitle(): ?string
+	public function getTitleInDisplayLanguage(): ?string
 	{
-		return $this->title;
+		return $this->title_in_display_language;
 	}
 
-	public function setTitle(string $title): self
+	public function setTitleInDisplayLanguage(string $title): self
 	{
-		$this->title = $title;
+		$this->title_in_display_language = $title;
 
 		return $this;
 	}
@@ -191,7 +191,7 @@ class Book
 
 	public function __toString()
 	{
-		return $this->title;
+		return $this->title_in_display_language;
 	}
 
 	public function getSeries(): ?Series

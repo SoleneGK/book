@@ -22,13 +22,13 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 final class BookAdmin extends AbstractAdmin
 {
 	protected $datagridValues = [
-		'_sort_by' => 'title',
+		'_sort_by' => 'title_in_display_language',
 	];
 
     protected function configureFormFields(FormMapper $form_mapper)
     {
 		$form_mapper
-			->add('title', TextType::class, [
+			->add('title_in_display_language', TextType::class, [
 				'label' => 'Titre',
 			])
 			->add('series', ModelType::class, [
@@ -78,7 +78,7 @@ final class BookAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagrid_mapper)
     {
 		$datagrid_mapper
-			->add('title')
+			->add('title_in_display_language')
 			->add('series')
 			->add('authors')
 			->add('fiction')
@@ -91,7 +91,7 @@ final class BookAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $list_mapper)
     {
 		$list_mapper
-			->addIdentifier('title', 'string', [
+			->addIdentifier('title_in_display_language', 'string', [
 				'label' => 'Titre',
 				'route' => [
 					'name' => 'show',
@@ -136,7 +136,7 @@ final class BookAdmin extends AbstractAdmin
 	protected function configureShowFields(ShowMapper $show_mapper)
 	{
 		$show_mapper
-			->add('title', 'string', [
+			->add('title_in_display_language', 'string', [
 				'label' => 'Titre',
 			])
 			->add('translations', null, [
