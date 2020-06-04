@@ -69,6 +69,21 @@ class Book
 	 */
 	private $translations;
 
+	/**
+	 * @ORM\ManyToOne(targetEntity=Language::class, inversedBy="books_in_writing_language")
+	 */
+	private $writing_language;
+
+	/**
+	 * @ORM\Column(type="text", nullable=true)
+	 */
+	private $title_in_writing_language;
+
+	/**
+	 * @ORM\ManyToOne(targetEntity=Language::class)
+	 */
+	private $display_language;
+
 	public function __construct()
 	{
 		$this->authors = new ArrayCollection();
@@ -269,6 +284,42 @@ class Book
 				$translation->setBook(null);
 			}
 		}
+
+		return $this;
+	}
+
+	public function getWritingLanguage(): ?Language
+	{
+		return $this->writing_language;
+	}
+
+	public function setWritingLanguage(?Language $writing_language): self
+	{
+		$this->writing_language = $writing_language;
+
+		return $this;
+	}
+
+	public function getTitleInWritingLanguage(): ?string
+	{
+		return $this->title_in_writing_language;
+	}
+
+	public function setTitleInWritingLanguage(?string $title_in_writing_language): self
+	{
+		$this->title_in_writing_language = $title_in_writing_language;
+
+		return $this;
+	}
+
+	public function getDisplayLanguage(): ?Language
+	{
+		return $this->display_language;
+	}
+
+	public function setDisplayLanguage(?Language $display_language): self
+	{
+		$this->display_language = $display_language;
 
 		return $this;
 	}

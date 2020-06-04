@@ -48,11 +48,17 @@ final class LanguageAdmin extends AbstractAdmin
 					'name' => 'show',
 				]
 			])
+			->add('books_in_writing_language', null, [
+				'label' => 'Livres (VO)',
+				'route' => [
+					'name' => 'show',
+				]
+			])
 			->add('translations', null, [
 				'route' => [
 					'name' => 'show',
 				],
-				'label' => 'Livres',
+				'label' => 'Livres (traductions)',
 			])
 		;
 	}

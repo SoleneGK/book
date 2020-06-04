@@ -34,11 +34,17 @@ class Language
 	 */
 	private $translations;
 
+	/**
+	 * @ORM\OneToMany(targetEntity=Book::class, mappedBy="writing_language")
+	 */
+	private $books_in_writing_language;
+
 	public function __construct()
 	{
 		$this->books = new ArrayCollection();
 		$this->readings = new ArrayCollection();
 		$this->translations = new ArrayCollection();
+		$this->books_in_writing_language = new ArrayCollection();
 	}
 
 	public function getId(): ?int
@@ -119,6 +125,37 @@ class Language
 			// set the owning side to null (unless already changed)
 			if ($translation->getLanguage() === $this) {
 				$translation->setLanguage(null);
+			}
+		}
+
+		return $this;
+	}
+
+	/**
+	 * @return Collection|Book[]
+	 */
+	public function getBooksInWritingLanguage(): Collection
+	{
+		return $this->books_in_writing_language;
+	}
+
+	public function addBooksInWritingLanguage(Book $booksInWritingLanguage): self
+	{
+		if (!$this->books_in_writing_language->contains($booksInWritingLanguage)) {
+			$this->books_in_writing_language[] = $booksInWritingLanguage;
+			$booksInWritingLanguage->setWritingLanguage($this);
+		}
+
+		return $this;
+	}
+
+	public function removeBooksInWritingLanguage(Book $booksInWritingLanguage): self
+	{
+		if ($this->books_in_writing_language->contains($booksInWritingLanguage)) {
+			$this->books_in_writing_language->removeElement($booksInWritingLanguage);
+			// set the owning side to null (unless already changed)
+			if ($booksInWritingLanguage->getWritingLanguage() === $this) {
+				$booksInWritingLanguage->setWritingLanguage(null);
 			}
 		}
 

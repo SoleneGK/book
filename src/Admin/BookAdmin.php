@@ -31,6 +31,21 @@ final class BookAdmin extends AbstractAdmin
 			->add('title_in_display_language', TextType::class, [
 				'label' => 'Titre',
 			])
+			->add('display_language', EntityType::class, [
+				'class' => Language::class,
+				'choice_label' => 'name',
+				'label' => 'Langue d\'affichage',
+			])
+			->add('title_in_writing_language', TextType::class, [
+				'label' => 'Titre en VO (si différend)',
+				'required' => false,
+			])
+			->add('writing_language', EntityType::class, [
+				'class' => Language::class,
+				'choice_label' => 'name',
+				'label' => 'Langue originale (si différente)',
+				'required' => false,
+			])
 			->add('series', ModelType::class, [
 				'class' => Series::class,
 				'required' => false,
@@ -56,12 +71,6 @@ final class BookAdmin extends AbstractAdmin
 				'label' => 'Genres',
 				'required' => false,
 			])
-			->add('translations', EntityType::class, [
-				'class' => Language::class,
-				'choice_label' => 'name',
-				'multiple' => true,
-				'label' => 'Langue(s)',
-			])
 			->add('rating', EntityType::class, [
 				'class' => Rating::class,
 				'choice_label' => 'code',
@@ -84,7 +93,6 @@ final class BookAdmin extends AbstractAdmin
 			->add('fiction')
 			->add('genres')
 			->add('rating.value')
-			->add('translations')
 		;
     }
 
@@ -116,12 +124,6 @@ final class BookAdmin extends AbstractAdmin
 					'name' => 'show',
 				]
 			])
-			->add('translations', null, [
-				'label' => 'Traduction(s)',
-				'route' => [
-					'name' => 'show',
-				],
-			])
 			->add('rating.code', 'string', [
 				'label' => 'Note',
 			])
@@ -138,6 +140,9 @@ final class BookAdmin extends AbstractAdmin
 		$show_mapper
 			->add('title_in_display_language', 'string', [
 				'label' => 'Titre',
+			])
+			->add('title_in_writing_language', 'string', [
+				'label' => 'Titre en VO',
 			])
 			->add('translations', null, [
 				'label' => 'Traductions',
