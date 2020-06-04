@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Repository\BookRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -45,11 +44,6 @@ class Book
 	private $readings;
 
 	/**
-	 * @ORM\ManyToMany(targetEntity=Language::class, inversedBy="books")
-	 */
-	private $languages;
-
-	/**
 	 * @ORM\ManyToOne(targetEntity=Series::class, inversedBy="books")
 	 */
 	private $series;
@@ -69,12 +63,17 @@ class Book
 	 */
 	private $misc;
 
+	/**
+	 * @ORM\OneToMany(targetEntity=Translation::class, mappedBy="book", orphanRemoval=true)
+	 */
+	private $translations;
+
 	public function __construct()
 	{
 		$this->authors = new ArrayCollection();
 		$this->genres = new ArrayCollection();
 		$this->readings = new ArrayCollection();
-		$this->languages = new ArrayCollection();
+		$this->translations = new ArrayCollection();
 	}
 
 	public function getId(): ?int
@@ -189,32 +188,6 @@ class Book
 		return $this;
 	}
 
-	/**
-	 * @return Collection|Language[]
-	 */
-	public function getLanguages(): Collection
-	{
-		return $this->languages;
-	}
-
-	public function addLanguage(Language $language): self
-	{
-		if (!$this->languages->contains($language)) {
-			$this->languages[] = $language;
-		}
-
-		return $this;
-	}
-
-	public function removeLanguage(Language $language): self
-	{
-		if ($this->languages->contains($language)) {
-			$this->languages->removeElement($language);
-		}
-
-		return $this;
-	}
-
 	public function __toString()
 	{
 		return $this->title;
@@ -264,6 +237,37 @@ class Book
 	public function setMisc(?string $misc): self
 	{
 		$this->misc = $misc;
+
+		return $this;
+	}
+
+	/**
+	 * @return Collection|Translation[]
+	 */
+	public function getTranslations(): Collection
+	{
+		return $this->translations;
+	}
+
+	public function addTranslation(Translation $translation): self
+	{
+		if (!$this->translations->contains($translation)) {
+			$this->translations[] = $translation;
+			$translation->setBook($this);
+		}
+
+		return $this;
+	}
+
+	public function removeTranslation(Translation $translation): self
+	{
+		if ($this->translations->contains($translation)) {
+			$this->translations->removeElement($translation);
+			// set the owning side to null (unless already changed)
+			if ($translation->getBook() === $this) {
+				$translation->setBook(null);
+			}
+		}
 
 		return $this;
 	}
