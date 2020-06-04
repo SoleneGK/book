@@ -79,7 +79,10 @@ final class BookAdmin extends AbstractAdmin
     {
 		$datagrid_mapper
 			->add('title')
+			->add('series')
+			->add('authors')
 			->add('fiction')
+			->add('genres')
 			->add('rating.value')
 		;
     }
@@ -93,7 +96,7 @@ final class BookAdmin extends AbstractAdmin
 					'name' => 'show',
 				]
 			])
-			->add('series', 'string', [
+			->add('series', null, [
 				'label' => 'Série',
 				'route' => [
 					'name' => 'show',
