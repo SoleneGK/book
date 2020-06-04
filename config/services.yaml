@@ -32,6 +32,12 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, label: Livres }
 
+    admin.translation:
+        class: App\Admin\TranslationAdmin
+        arguments: [~, App\Entity\Translation, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Traductions }
+
     admin.reading:
         class: App\Admin\ReadingAdmin
         arguments: [~, App\Entity\Reading, ~]

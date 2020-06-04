@@ -56,7 +56,7 @@ final class BookAdmin extends AbstractAdmin
 				'label' => 'Genres',
 				'required' => false,
 			])
-			->add('languages', EntityType::class, [
+			->add('translations', EntityType::class, [
 				'class' => Language::class,
 				'choice_label' => 'name',
 				'multiple' => true,
@@ -84,6 +84,7 @@ final class BookAdmin extends AbstractAdmin
 			->add('fiction')
 			->add('genres')
 			->add('rating.value')
+			->add('translations')
 		;
     }
 
@@ -115,8 +116,8 @@ final class BookAdmin extends AbstractAdmin
 					'name' => 'show',
 				]
 			])
-			->add('languages', null, [
-				'label' => 'Langue(s)',
+			->add('translations', null, [
+				'label' => 'Traduction(s)',
 				'route' => [
 					'name' => 'show',
 				],
@@ -137,6 +138,12 @@ final class BookAdmin extends AbstractAdmin
 		$show_mapper
 			->add('title', 'string', [
 				'label' => 'Titre',
+			])
+			->add('translations', null, [
+				'label' => 'Traductions',
+				'route' => [
+					'name' => 'show',
+				],
 			])
 			->add('series', null, [
 				'label' => 'Série',
@@ -159,12 +166,6 @@ final class BookAdmin extends AbstractAdmin
 				'route' => [
 					'name' => 'show',
 				]
-			])
-			->add('languages', null, [
-				'label' => 'Langues',
-				'route' => [
-					'name' => 'show',
-				],
 			])
 			->add('rating.code', 'string', [
 				'label' => 'Note',

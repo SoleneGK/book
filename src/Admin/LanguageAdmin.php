@@ -48,7 +48,7 @@ final class LanguageAdmin extends AbstractAdmin
 					'name' => 'show',
 				]
 			])
-			->add('books', null, [
+			->add('translations', null, [
 				'route' => [
 					'name' => 'show',
 				],
