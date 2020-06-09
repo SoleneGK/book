@@ -85,23 +85,59 @@ final class BookAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagrid_mapper)
     {
 		$datagrid_mapper
-			->add('title_in_display_language')
-			->add('series')
-			->add('authors')
-			->add('fiction')
-			->add('genres')
-			->add('rating.value')
+			->add('title_in_display_language', null, [
+				'label' => 'Titre',
+			])
+			->add('display_language', null, [
+				'label' => 'Langue',
+			])
+			->add('writing_language', null, [
+				'label' => 'Langue d\'écriture',
+			])
+			->add('series', null, [
+				'label' => 'Série',
+			])
+			->add('authors', null, [
+				'label' => 'Auteurice(s)',
+			])
+			->add('fiction', null, [
+				'label' => 'Fiction',
+			])
+			->add('genres', null, [
+				'label' => 'Genre(s)',
+			])
+			->add('rating.value', null, [
+				'label' => 'Note',
+			])
 		;
     }
 
     protected function configureListFields(ListMapper $list_mapper)
     {
 		$list_mapper
+			->add('display_language', null, [
+				'label' => 'Langue',
+				'route' => [
+					'name' => 'show',
+				],
+			])
 			->addIdentifier('title_in_display_language', 'string', [
 				'label' => 'Titre',
 				'route' => [
 					'name' => 'show',
-				]
+				],
+			])
+			->add('writing_language', null, [
+				'label' => 'Langue',
+				'route' => [
+					'name' => 'show',
+				],
+			])
+			->addIdentifier('title_in_writing_language', 'string', [
+				'label' => 'Titre original',
+				'route' => [
+					'name' => 'show',
+				],
 			])
 			->add('series', null, [
 				'label' => 'Série',
@@ -124,12 +160,6 @@ final class BookAdmin extends AbstractAdmin
 			])
 			->add('rating.code', 'string', [
 				'label' => 'Note',
-			])
-			->add('display_language', null, [
-				'label' => 'Langue',
-				'route' => [
-					'name' => 'show',
-				]
 			])
 			->add('_action', null, [
 				'actions' => [

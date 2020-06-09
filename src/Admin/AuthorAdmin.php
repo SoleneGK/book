@@ -42,9 +42,15 @@ final class AuthorAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagrid_mapper)
     {
 		$datagrid_mapper
-			->add('first_name')
-			->add('last_name')
-			->add('country')
+			->add('first_name', null, [
+				'label' => 'Prénom',
+			])
+			->add('last_name', null, [
+				'label' => 'Nom',
+			])
+			->add('country', null, [
+				'label' => 'Pays',
+			])
 		;
     }
 

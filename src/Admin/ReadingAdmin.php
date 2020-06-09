@@ -19,7 +19,7 @@ final class ReadingAdmin extends AbstractAdmin
 		$form_mapper
 			->add('book', EntityType::class, [
 				'class' => Book::class,
-				'choice_label' => 'title',
+				'choice_label' => 'title_in_display_language',
 				'label' => 'Livre',
 			])
 			->add('start_date', DateType::class, [
@@ -40,8 +40,12 @@ final class ReadingAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagrid_mapper)
     {
 		$datagrid_mapper
-			->add('book')
-			->add('language.name')
+			->add('book', null, [
+				'label' => 'Livre',
+			])
+			->add('language.name', null, [
+				'label' => 'Langue',
+			])
 		;
     }
 
@@ -68,7 +72,7 @@ final class ReadingAdmin extends AbstractAdmin
 			])
 			->add('_action', null, [
 				'actions' => [
-					'show' => [],
+					'edit' => [],
 				]
 			])
 		;
