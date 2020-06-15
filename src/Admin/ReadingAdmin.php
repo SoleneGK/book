@@ -11,6 +11,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Sonata\CoreBundle\Form\Type\DatePickerType;
 
 final class ReadingAdmin extends AbstractAdmin
 {
@@ -22,10 +23,10 @@ final class ReadingAdmin extends AbstractAdmin
 				'choice_label' => 'title_in_display_language',
 				'label' => 'Livre',
 			])
-			->add('start_date', DateType::class, [
+			->add('start_date', DatePickerType::class, [
 				'label' => 'Date de début',
 			])
-			->add('end_date', DateType::class, [
+			->add('end_date', DatePickerType::class, [
 				'label' => 'Date de fin',
 				'required' => false,
 			])
