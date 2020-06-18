@@ -23,7 +23,9 @@ final class LanguageAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagrid_mapper)
     {
 		$datagrid_mapper
-			->add('name')
+			->add('name', null, [
+				'label' => 'Nom',
+			])
 		;
     }
 
@@ -48,11 +50,17 @@ final class LanguageAdmin extends AbstractAdmin
 					'name' => 'show',
 				]
 			])
-			->add('books', null, [
+			->add('books_in_writing_language', null, [
+				'label' => 'Livres (VO)',
+				'route' => [
+					'name' => 'show',
+				]
+			])
+			->add('translations', null, [
 				'route' => [
 					'name' => 'show',
 				],
-				'label' => 'Livres',
+				'label' => 'Livres (traductions)',
 			])
 		;
 	}

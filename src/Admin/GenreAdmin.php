@@ -27,7 +27,9 @@ final class GenreAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagrid_mapper)
     {
 		$datagrid_mapper
-			->add('name')
+			->add('name', null, [
+				'label' => 'Nom',
+			])
 		;
     }
 

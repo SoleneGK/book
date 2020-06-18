@@ -22,14 +22,27 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 final class BookAdmin extends AbstractAdmin
 {
 	protected $datagridValues = [
-		'_sort_by' => 'title',
+		'_sort_by' => 'title_in_display_language',
 	];
 
     protected function configureFormFields(FormMapper $form_mapper)
     {
 		$form_mapper
-			->add('title', TextType::class, [
+			->add('title_in_display_language', TextType::class, [
 				'label' => 'Titre',
+			])
+			->add('display_language', EntityType::class, [
+				'class' => Language::class,
+				'choice_label' => 'name',
+				'label' => 'Langue d\'affichage',
+			])
+			->add('title_in_writing_language', TextType::class, [
+				'label' => 'Titre en VO',
+			])
+			->add('writing_language', ModelType::class, [
+				'class' => Language::class,
+				'property' => 'name',
+				'label' => 'Langue originale',
 			])
 			->add('series', ModelType::class, [
 				'class' => Series::class,
@@ -56,12 +69,6 @@ final class BookAdmin extends AbstractAdmin
 				'label' => 'Genres',
 				'required' => false,
 			])
-			->add('languages', EntityType::class, [
-				'class' => Language::class,
-				'choice_label' => 'name',
-				'multiple' => true,
-				'label' => 'Langue(s)',
-			])
 			->add('rating', EntityType::class, [
 				'class' => Rating::class,
 				'choice_label' => 'code',
@@ -78,23 +85,59 @@ final class BookAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagrid_mapper)
     {
 		$datagrid_mapper
-			->add('title')
-			->add('series')
-			->add('authors')
-			->add('fiction')
-			->add('genres')
-			->add('rating.value')
+			->add('title_in_display_language', null, [
+				'label' => 'Titre',
+			])
+			->add('display_language', null, [
+				'label' => 'Langue',
+			])
+			->add('writing_language', null, [
+				'label' => 'Langue d\'écriture',
+			])
+			->add('series', null, [
+				'label' => 'Série',
+			])
+			->add('authors', null, [
+				'label' => 'Auteurice(s)',
+			])
+			->add('fiction', null, [
+				'label' => 'Fiction',
+			])
+			->add('genres', null, [
+				'label' => 'Genre(s)',
+			])
+			->add('rating.value', null, [
+				'label' => 'Note',
+			])
 		;
     }
 
     protected function configureListFields(ListMapper $list_mapper)
     {
 		$list_mapper
-			->addIdentifier('title', 'string', [
+			->add('display_language', null, [
+				'label' => 'Langue',
+				'route' => [
+					'name' => 'show',
+				],
+			])
+			->addIdentifier('title_in_display_language', 'string', [
 				'label' => 'Titre',
 				'route' => [
 					'name' => 'show',
-				]
+				],
+			])
+			->add('writing_language', null, [
+				'label' => 'Langue',
+				'route' => [
+					'name' => 'show',
+				],
+			])
+			->addIdentifier('title_in_writing_language', 'string', [
+				'label' => 'Titre original',
+				'route' => [
+					'name' => 'show',
+				],
 			])
 			->add('series', null, [
 				'label' => 'Série',
@@ -115,12 +158,6 @@ final class BookAdmin extends AbstractAdmin
 					'name' => 'show',
 				]
 			])
-			->add('languages', null, [
-				'label' => 'Langue(s)',
-				'route' => [
-					'name' => 'show',
-				],
-			])
 			->add('rating.code', 'string', [
 				'label' => 'Note',
 			])
@@ -135,8 +172,17 @@ final class BookAdmin extends AbstractAdmin
 	protected function configureShowFields(ShowMapper $show_mapper)
 	{
 		$show_mapper
-			->add('title', 'string', [
+			->add('title_in_display_language', 'string', [
 				'label' => 'Titre',
+			])
+			->add('title_in_writing_language', 'string', [
+				'label' => 'Titre en VO',
+			])
+			->add('translations', null, [
+				'label' => 'Traductions',
+				'route' => [
+					'name' => 'show',
+				],
 			])
 			->add('series', null, [
 				'label' => 'Série',
@@ -159,12 +205,6 @@ final class BookAdmin extends AbstractAdmin
 				'route' => [
 					'name' => 'show',
 				]
-			])
-			->add('languages', null, [
-				'label' => 'Langues',
-				'route' => [
-					'name' => 'show',
-				],
 			])
 			->add('rating.code', 'string', [
 				'label' => 'Note',

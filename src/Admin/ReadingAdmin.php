@@ -11,21 +11,22 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Sonata\CoreBundle\Form\Type\DatePickerType;
 
 final class ReadingAdmin extends AbstractAdmin
 {
-    protected function configureFormFields(FormMapper $form_mapper)
-    {
+	protected function configureFormFields(FormMapper $form_mapper)
+	{
 		$form_mapper
 			->add('book', EntityType::class, [
 				'class' => Book::class,
-				'choice_label' => 'title',
+				'choice_label' => 'title_in_display_language',
 				'label' => 'Livre',
 			])
-			->add('start_date', DateType::class, [
+			->add('start_date', DatePickerType::class, [
 				'label' => 'Date de début',
 			])
-			->add('end_date', DateType::class, [
+			->add('end_date', DatePickerType::class, [
 				'label' => 'Date de fin',
 				'required' => false,
 			])
@@ -35,18 +36,22 @@ final class ReadingAdmin extends AbstractAdmin
 				'label' => 'Langue',
 			])
 		;
-    }
+	}
 
-    protected function configureDatagridFilters(DatagridMapper $datagrid_mapper)
-    {
+	protected function configureDatagridFilters(DatagridMapper $datagrid_mapper)
+	{
 		$datagrid_mapper
-			->add('book')
-			->add('language.name')
+			->add('book', null, [
+				'label' => 'Livre',
+			])
+			->add('language.name', null, [
+				'label' => 'Langue',
+			])
 		;
-    }
+	}
 
-    protected function configureListFields(ListMapper $list_mapper)
-    {
+	protected function configureListFields(ListMapper $list_mapper)
+	{
 		$list_mapper
 			->addIdentifier('book', null, [
 				'route' => [
@@ -54,10 +59,21 @@ final class ReadingAdmin extends AbstractAdmin
 				],
 				'label' => 'Livre',
 			])
-			->addIdentifier('start_date', null, [
-				'label' => 'Début',
+			->add('book.series', null, [
+				'label' => 'Série',
+				'route' => [
+					'name' => 'show',
+				]
 			])
-			->addIdentifier('end_date', null, [
+			->add('book.number_in_series', 'string', [
+				'label' => 'N°',
+			])
+			->add('start_date', null, [
+				'label' => 'Début',
+				'editable' => true,
+			])
+			->add('end_date', null, [
+				'editable' => true,
 				'label' => 'Fin',
 			])
 			->addIdentifier('language', null, [
@@ -68,7 +84,7 @@ final class ReadingAdmin extends AbstractAdmin
 			])
 			->add('_action', null, [
 				'actions' => [
-					'show' => [],
+					'edit' => [],
 				]
 			])
 		;
@@ -77,7 +93,7 @@ final class ReadingAdmin extends AbstractAdmin
 	protected function configureShowFields(ShowMapper $show_mapper)
 	{
 		$show_mapper
-			->add('book', 'string', [
+			->add('book', null, [
 				'route' => [
 					'name' => 'show',
 				],
