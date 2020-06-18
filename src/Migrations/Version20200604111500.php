@@ -22,7 +22,6 @@ final class Version20200604111500 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE book ADD writing_language_id INT DEFAULT NULL, ADD display_language_id INT DEFAULT NULL, ADD title_in_writing_language LONGTEXT DEFAULT NULL');
         $this->addSql('ALTER TABLE book ADD CONSTRAINT FK_CBE5A3319A53AAD2 FOREIGN KEY (writing_language_id) REFERENCES language (id)');
         $this->addSql('ALTER TABLE book ADD CONSTRAINT FK_CBE5A331238D92B3 FOREIGN KEY (display_language_id) REFERENCES language (id)');
         $this->addSql('CREATE INDEX IDX_CBE5A3319A53AAD2 ON book (writing_language_id)');
@@ -34,7 +33,6 @@ final class Version20200604111500 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE book DROP FOREIGN KEY FK_CBE5A3319A53AAD2');
         $this->addSql('ALTER TABLE book DROP FOREIGN KEY FK_CBE5A331238D92B3');
         $this->addSql('DROP INDEX IDX_CBE5A3319A53AAD2 ON book');
         $this->addSql('DROP INDEX IDX_CBE5A331238D92B3 ON book');
