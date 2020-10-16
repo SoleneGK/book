@@ -44,6 +44,9 @@ final class ReadingAdmin extends AbstractAdmin
 			->add('book', null, [
 				'label' => 'Livre',
 			])
+			->add('book.series', null, [
+				'label' => 'Série',
+			])
 			->add('language.name', null, [
 				'label' => 'Langue',
 			])
